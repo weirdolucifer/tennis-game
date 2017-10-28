@@ -1,1 +1,64 @@
+<html>
+<canvas id="frame" width="1295" height="650" >
+</canvas>
+<script>
+var canvas;
+var canvasContext;
+var ballXposition=50;
+var ballYposition=50;
+var ballXspeed=20;
+var ballYspeed=4;
+window.onload=function()
+   {
+   canvas=document.getElementById('frame');
+   canvasContext= canvas.getContext('2d');
+   var frametime=30;
+   setInterval(function(){
+                         move();
+                         draw();
+                       }, 1000/frametime );
+   }
+function move()
+{
+  ballXposition = ballXposition+ballXspeed;
+  ballYposition = ballYposition+ballYspeed;
 
+  if(ballXposition < 0)
+  {
+    ballXspeed=-ballXspeed;
+  }
+  if(ballYposition < 0)
+  {
+    ballYspeed=-ballYspeed;
+  }
+  if(ballXposition > canvas.width)
+  {
+    ballXspeed=-ballXspeed;
+  }
+  if(ballYposition > canvas.height)
+  {
+    ballYspeed=-ballYspeed;
+  }
+}
+function draw()
+{
+  colorfill(0,0,canvas.width,canvas.height,'black');
+  colorfill(0,210,10,150,'white');
+  circle(ballXposition,100,10,'red');
+
+}
+function colorfill(left,top,width,height,Colour)
+{
+  canvasContext.fillStyle=Colour;
+  canvasContext.fillRect(left,top,width,height);
+
+}
+function circle(X,Y,radius,Colour)
+{
+  canvasContext.fillStyle=Colour;
+  canvasContext.beginPath();
+  canvasContext.arc(X,Y,radius,0,Math.PI*2,true);
+  canvasContext.fill();
+}
+</script>
+</html>
