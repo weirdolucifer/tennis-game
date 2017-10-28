@@ -8,6 +8,9 @@ var ballXposition=50;
 var ballYposition=50;
 var ballXspeed=20;
 var ballYspeed=4;
+var paddle1Y=210;
+const PADDLE_HEIGHT=100;
+
 window.onload=function()
    {
    canvas=document.getElementById('frame');
@@ -17,6 +20,23 @@ window.onload=function()
                          move();
                          draw();
                        }, 1000/frametime );
+    canvas.addEventListener('mousemove',function(evt)
+                                            {
+                                              var mousePos = calculateMousePos(evt);
+                                              paddle1Y= mousePos.y - (PADDLE_HEIGHT/2);
+                                            });
+
+   }
+   function calculateMousePos(evt)
+   {
+     console.log("a");
+     var rect=canvas.getBoundingClientRect();
+     var root=document.documentElement;
+     var mouseX= evt.clientX - rect.left -root.scrollLeft;
+     var mouseY= evt.clientY - rect.top - root.scrollTop;
+    
+
+    return { x: mouseX, y: mouseY };
    }
 function move()
 {
@@ -43,7 +63,7 @@ function move()
 function draw()
 {
   colorfill(0,0,canvas.width,canvas.height,'black');
-  colorfill(0,210,10,150,'white');
+  colorfill(0,paddle1Y,10,100,'white');
   circle(ballXposition,ballYposition,10,'red');
 
 }
